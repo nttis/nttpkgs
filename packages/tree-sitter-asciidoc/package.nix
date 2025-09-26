@@ -1,0 +1,28 @@
+{ stdenv, fetchFromGitHub }:
+stdenv.mkDerivation (final: {
+  pname = "tree-sitter-asciidoc";
+  version = "0.3.0";
+
+  src = fetchFromGitHub {
+    owner = "cathaysia";
+    repo = "tree-sitter-asciidoc";
+    rev = "v${final.version}";
+    hash = "sha256-7FLwOO8HgSxujMP/MifYiB3xghv6CWgYFnxkgu6yGNI=";
+  };
+
+  buildPhase = ''
+    runHook preBuild
+    $CC -shared -o parser tree-sitter-asciidoc/src/*.c
+    runHook postBuild
+  '';
+
+  installPhase = ''
+    runHook preInstall
+    mkdir -p $out
+
+    mv parser $out/parser
+    mv tree-sitter-asciidoc/queries $out/
+
+    runHook postInstall
+  '';
+})
