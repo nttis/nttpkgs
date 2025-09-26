@@ -1,13 +1,18 @@
-{ stdenv, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+}:
 stdenv.mkDerivation (final: {
   pname = "tree-sitter-asciidoc";
-  version = "0.3.0";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "cathaysia";
     repo = "tree-sitter-asciidoc";
     rev = "v${final.version}";
-    hash = "sha256-7FLwOO8HgSxujMP/MifYiB3xghv6CWgYFnxkgu6yGNI=";
+    hash = "sha256-FPb39h4Tp/s4UiBtFAaN1hmK/ZRqVedg6coDYbgj4UE=";
   };
 
   buildPhase = ''
@@ -25,4 +30,13 @@ stdenv.mkDerivation (final: {
 
     runHook postInstall
   '';
+
+  passthru = {
+    updateScript = nix-update-script { };
+  };
+
+  meta = {
+    homepage = "https://github.com/cathaysia/tree-sitter-asciidoc";
+    license = lib.licenses.asl20;
+  };
 })
