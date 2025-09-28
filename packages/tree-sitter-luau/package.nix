@@ -1,12 +1,17 @@
-{ stdenv, fetchFromGitHub }:
-stdenv.mkDerivation (final: {
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+}:
+stdenv.mkDerivation {
   pname = "tree-sitter-luau";
-  version = "ec187cafba510cddac265329ca7831ec6f3b9955";
+  version = "0-unstable-2025-03-15";
 
   src = fetchFromGitHub {
     owner = "polychromatist";
     repo = "tree-sitter-luau";
-    rev = final.version;
+    rev = "ec187cafba510cddac265329ca7831ec6f3b9955";
     hash = "sha256-a+TJFLt77G4UyvcLz5Nsc6gvsgCTwmpZDNyfN8YUJDc=";
   };
 
@@ -25,4 +30,13 @@ stdenv.mkDerivation (final: {
 
     runHook postInstall
   '';
-})
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
+
+  meta = {
+    homepage = "https://github.com/polychromatist/tree-sitter-luau";
+    license = lib.licenses.mit;
+  };
+}
