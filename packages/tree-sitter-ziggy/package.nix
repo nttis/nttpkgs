@@ -1,13 +1,18 @@
-{ stdenv, fetchFromGitHub }:
-stdenv.mkDerivation (final: {
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+}:
+stdenv.mkDerivation {
   pname = "tree-sitter-ziggy";
-  version = "fe3bf9389e7ff213cf3548caaf9c6f3d4bb38647";
+  version = "0.0.1-unstable-2025-08-19";
 
   src = fetchFromGitHub {
     owner = "kristoff-it";
     repo = "ziggy";
-    rev = final.version;
-    hash = "sha256-w2WO2N3+XJWhWnt9swOux2ynKxmePbB4VojXM8K5GAo=";
+    rev = "4353b20ef2ac750e35c6d68e4eb2a07c2d7cf901";
+    hash = "sha256-7XZNKUrOkpPMge6nDSiEBlUAf7dZLDcVcJ7fHT8fPh4=";
   };
 
   buildPhase = ''
@@ -25,4 +30,13 @@ stdenv.mkDerivation (final: {
 
     runHook postInstall
   '';
-})
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
+
+  meta = {
+    homepage = "https://github.com/kristoff-it/ziggy";
+    license = lib.licenses.mit;
+  };
+}
