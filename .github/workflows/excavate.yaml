@@ -12,6 +12,9 @@ jobs:
     name: "Update packages"
     runs-on: "ubuntu-latest"
 
+    permissions:
+      contents: write
+
     steps:
       - name: "Install Nix"
         uses: "cachix/install-nix-action@9280e7aca88deada44c930f1e2c78e21c3ae3edd" # v31.7.0
@@ -22,10 +25,13 @@ jobs:
       - name: "Checkout"
         uses: "actions/checkout@v5"
 
-      - name: "Convert to jj repo"
+      - name: "Setup Git"
         run: |
-          nix run nixpkgs#jujutsu -- git init --colocate
-          nix run nixpkgs#jujutsu -- bookmark track main@origin
+          git config --global user.name "nttis"
+          git config --global user.email "42465069+nttis@users.noreply.github.com"
 
       - name: "Run update script"
-        run: "./update/driver.sh"
+        run: nix shell nixpkgs#nix-update nixpkgs#python3 --command python update/update.py
+
+      - name: "Push changes"
+        run: git push

@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation (final: {
   pname = "tree-sitter-asciidoc";
-  version = "0.4.0";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "cathaysia";
