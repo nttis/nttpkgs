@@ -1,0 +1,25 @@
+name: "Update packages"
+
+on:
+  schedule:
+    # 5:32 every day
+    - cron: "32 5 * * *"
+
+  workflow_dispatch:
+
+jobs:
+  excavate:
+    name: "Update packages"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Install Nix"
+        uses: "cachix/install-nix-action@a809471b5c7c913aa67bec8f459a11a0decc3fce" # v31.6.2
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Checkout"
+        uses: "actions/checkout@v5"
+
+      - name: "Update"
+        run: "./update/update.fish"
