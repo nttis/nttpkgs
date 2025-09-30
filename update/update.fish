@@ -1,4 +1,4 @@
-#!/usr/bin/env -S nix shell nixpkgs#fish nixpkgs#bubblewrap --command fish
+#!/usr/bin/env -S nix shell nixpkgs#jujutsu nixpkgs#fish nixpkgs#bubblewrap --command fish
 
 echo "NOTE: This script should be run from the root of the repository, NOT from 'update'."
 
@@ -27,13 +27,26 @@ bwrap \
     --overlay $dest_dir $work_dir $dest_dir \
     --chdir $dest_dir \
     nix-shell "maintainers/scripts/update.nix" \
-    --arg keep-going true \
-    --arg skip-prompt true \
+    --argstr keep-going true \
+    --argstr skip-prompt true \
     --arg predicate "path: pkg: builtins.elem (builtins.elemAt path 0) $packages_names"
 
 # copy back the differences
 if test -e $dest_dir/pkgs/by-name/nttpkgs
+    set affected_packages (string join ", " (ls $dest_dir/pkgs/by-name/nttpkgs))
+
+    jj config set --user user.name nttis
+    jj config set --user user.email "42465069+nttis@users.noreply.github.com"
+
+    jj new
+    printf "ci: update packages\n\nUpdated packages: %s" $affected_packages | jj describe --stdin --author "github-actions <41898282+github-actions[bot]@users.noreply.github.com>"
+
     cp -r $dest_dir/pkgs/by-name/nttpkgs/* $root/packages
+
+    jj bookmark set main
+    jj git push
+else
+    echo "No changes to packages!"
 end
 
 rm -r $dest_dir
