@@ -30,8 +30,16 @@ jobs:
           git config --global user.name "nttis"
           git config --global user.email "42465069+nttis@users.noreply.github.com"
 
+          nix run nixpkgs#jujutsu -- config set --user user.name "nttis"
+          nix run nixpkgs#jujutsu -- config set --user user.email "42465069+nttis@users.noreply.github.com"
+
+          nix run nixpkgs#jujutsu -- git init --colocate
+          nix run nixpkgs#jujutsu -- bookmark track main@origin
+
       - name: "Run update script"
         run: nix shell nixpkgs#nix-update nixpkgs#python3 --command python update/update.py
 
       - name: "Push changes"
-        run: git push
+        run: |
+          nix run nixpkgs#jujutsu -- describe --no-edit -r "mutable()" --author "github-actions <41898282+github-actions[bot]@users.noreply.github.com>"
+          nix run nixpkgs#jujutsu -- git push
