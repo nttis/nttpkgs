@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  nix-update-script,
 }:
 stdenv.mkDerivation (final: {
   pname = "tree-sitter-asciidoc";
@@ -30,10 +29,6 @@ stdenv.mkDerivation (final: {
 
     runHook postInstall
   '';
-
-  passthru = {
-    updateScript = nix-update-script { };
-  };
 
   meta = {
     homepage = "https://github.com/cathaysia/tree-sitter-asciidoc";

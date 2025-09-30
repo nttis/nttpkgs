@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  nix-update-script,
 }:
 stdenv.mkDerivation {
   pname = "tree-sitter-luau";
@@ -31,8 +30,8 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+  passthru = {
+    nixUpdateArgs = [ "--version=branch" ];
   };
 
   meta = {

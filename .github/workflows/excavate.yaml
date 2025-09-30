@@ -27,5 +27,5 @@ jobs:
           nix run nixpkgs#jujutsu -- git init --colocate
           nix run nixpkgs#jujutsu -- bookmark track main@origin
 
-      - name: "Update"
-        run: "./update/update.fish"
+      - name: "Run update script"
+        run: "./update/driver.sh"
