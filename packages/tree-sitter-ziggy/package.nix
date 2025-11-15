@@ -5,13 +5,13 @@
 }:
 stdenv.mkDerivation {
   pname = "tree-sitter-ziggy";
-  version = "0.0.1-unstable-2025-08-19";
+  version = "0.0.1-unstable-2025-11-14";
 
   src = fetchFromGitHub {
     owner = "kristoff-it";
     repo = "ziggy";
-    rev = "4353b20ef2ac750e35c6d68e4eb2a07c2d7cf901";
-    hash = "sha256-7XZNKUrOkpPMge6nDSiEBlUAf7dZLDcVcJ7fHT8fPh4=";
+    rev = "a246334e7a1d3f43f9f76a4af6c6d179d37b188f";
+    hash = "sha256-1uUgd1d+UHWsAxPTaCDyJZmPSg2PPPialCNBIgu79ck=";
   };
 
   buildPhase = ''
