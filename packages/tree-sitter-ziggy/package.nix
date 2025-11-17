@@ -10,8 +10,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "kristoff-it";
     repo = "ziggy";
-    rev = "8768d5fe79a689e0a399e2ec1296f329cdcb0a8f";
-    hash = "sha256-iXJ2jIeYAf074gC6B4A4EfQLTNYeQGqJH08xSIbrUwI=";
+    rev = "6eeb092b41b75dc91a821eded15f536869f7eb78";
+    hash = "sha256-pNqwRKVmk5WncpBV+6Lgqmy5Ff/HyYYUGobDUrSzh5Y=";
   };
 
   buildPhase = ''
