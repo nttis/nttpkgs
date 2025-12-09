@@ -5,13 +5,13 @@
 }:
 stdenv.mkDerivation {
   pname = "tree-sitter-luau";
-  version = "0-unstable-2025-03-15";
+  version = "0-unstable-2025-12-08";
 
   src = fetchFromGitHub {
     owner = "polychromatist";
     repo = "tree-sitter-luau";
-    rev = "ec187cafba510cddac265329ca7831ec6f3b9955";
-    hash = "sha256-a+TJFLt77G4UyvcLz5Nsc6gvsgCTwmpZDNyfN8YUJDc=";
+    rev = "71b03e66b2c8dd04e0133c9b998a54a58f239ca4";
+    hash = "sha256-aXoq9NvJDzQLSuyanFL8dQepxTyK/k5y0APAJn1DZKI=";
   };
 
   buildPhase = ''
