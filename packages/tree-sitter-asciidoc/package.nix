@@ -5,13 +5,13 @@
 }:
 stdenv.mkDerivation (final: {
   pname = "tree-sitter-asciidoc";
-  version = "0.4.0";
+  version = "0.6.0";
 
   src = fetchFromGitHub {
     owner = "cathaysia";
     repo = "tree-sitter-asciidoc";
     rev = "v${final.version}";
-    hash = "sha256-FPb39h4Tp/s4UiBtFAaN1hmK/ZRqVedg6coDYbgj4UE=";
+    hash = "sha256-zpb3WS2RjVbVzGdExRoUFgYtzjmsV9pu/C913JEzmFo=";
   };
 
   buildPhase = ''
